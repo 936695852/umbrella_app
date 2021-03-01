@@ -11,7 +11,7 @@ export const Top = styled.div`
     line-height: 40px;
     color: #f1f1f1;
     font-size: 20px;
-    &.iconfont {
+    &:not(.title) {
       font-size: 25px;
     }
   }
