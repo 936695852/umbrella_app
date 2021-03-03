@@ -1,8 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { GlobalStyle } from './style'
-import { renderRoutes } from 'react-router-config'
-import store from './store/index' //renderRoutes 读取路由配置转化为 Route 标签
+import { renderRoutes } from 'react-router-config' //renderRoutes 读取路由配置转化为 Route 标签
+import store from './store/index'
 import routes from './routes/index.js'
 import { BrowserRouter } from 'react-router-dom'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { renderRoutes } from 'react-router-config'
 import { Top, Tab, TabItem } from './style'
 import { NavLink } from 'react-router-dom'
-import { FaFolder } from 'react-icons/fa'
+import { FaBars, FaSistrix } from 'react-icons/fa'
 
 function Home(props) {
   const { route } = props
@@ -10,11 +10,11 @@ function Home(props) {
     <div>
       <Top>
         <span>
-          <FaFolder title="folder icon" />
+          <FaBars />
         </span>
         <span className="title">WebApp</span>
         <span>
-          <FaFolder title="folder icon" />
+          <FaSistrix />
         </span>
       </Top>
       <Tab>
