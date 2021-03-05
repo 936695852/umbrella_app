@@ -6,6 +6,7 @@ import Scroll from '../../baseUl/scroll'
 import { Content } from './style'
 import { forceCheck } from 'react-lazyload'
 import Loading from '../../baseUl/loading'
+import { renderRoutes } from 'react-router-config'
 
 import * as actionTypes from './store/actionCreators'
 
@@ -38,6 +39,7 @@ function Recommend(props) {
           <RecommendList recommendList={recommendListJS}></RecommendList>
         </div>
       </Scroll>
+      {renderRoutes(props.route.routes)}
     </Content>
   )
 }

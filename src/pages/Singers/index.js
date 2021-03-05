@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Horizon from '../../baseUl/horizonItem'
 import Scroll from '../../baseUl/scroll'
 import { categoryTypes, alphaTypes } from '../../api/config'
 import { NavContainer, ListContainer, List, ListItem } from './style'
 import LazyLoad, { forceCheck } from 'react-lazyload'
+
+import { CategoryDataContext, CHANGE_CATEGORY, CHANGE_ALPHA } from './data'
 
 import {
   getSingerList,
@@ -40,28 +42,31 @@ const renderSingerList = singerList => {
 }
 
 function Singers(props) {
-  let [category, setCategory] = useState('')
-  let [alpha, setAlpha] = useState('')
-
   const { singerList, pullUpLoading, pullDownLoading, pageCount } = props
   const { getHotSingerDispatch, updateDispatch, pullUpRefreshDispatch, pullDownRefreshDispatch } = props
+
+  const { data, dispatch } = useContext(CategoryDataContext)
+  // 拿到 category 和 alpha 的值
+  const { category, alpha } = data.toJS()
 
   useEffect(() => {
     // 如果页面有数据，则不发请求
     //immutable 数据结构中长度属性 size
-    getHotSingerDispatch()
+    if (!singerList.size) {
+      getHotSingerDispatch()
+    }
     //eslint-disable-next-line
   }, [])
 
   const singerListJS = singerList ? singerList.toJS() : []
 
   const handleUpdateAlpha = val => {
-    setAlpha(val)
+    dispatch({ type: CHANGE_ALPHA, data: val })
     updateDispatch(category, val)
   }
 
   const handleUpdateCategory = val => {
-    setCategory(val)
+    dispatch({ type: CHANGE_CATEGORY, data: val })
     updateDispatch(val, alpha)
   }
 
@@ -78,10 +83,10 @@ function Singers(props) {
       <Horizon
         list={categoryTypes}
         title={'分类 (默认热门):'}
-        handleClick={handleUpdateCategory}
+        handleClick={val => handleUpdateCategory(val)}
         oldVal={category}
       ></Horizon>
-      <Horizon list={alphaTypes} title={'首字母:'} handleClick={handleUpdateAlpha} oldVal={alpha}></Horizon>
+      <Horizon list={alphaTypes} title={'首字母:'} handleClick={val => handleUpdateAlpha(val)} oldVal={alpha}></Horizon>
       <ListContainer>
         <Scroll
           onScroll={forceCheck}

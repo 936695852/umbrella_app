@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useMemo, useRef, useImperativeHandle } from 'react'
+import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import BScroll from 'better-scroll'
 import styled from 'styled-components'
@@ -67,15 +67,10 @@ const Scroll = forwardRef((props, ref) => {
       bScroll.off('scroll')
     }
   }, [onScroll, bScroll])
-
-  let pullUpDebounce = useMemo(() => {
-    return debounce(pullUp, 500)
-  }, [pullUp])
-
-  let pullDownDebounce = useMemo(() => {
-    return debounce(pullDown, 500)
-  }, [pullDown])
-
+  // eslint-disable-next-line
+  let pullUpDebounce = useCallback(debounce(pullUp, 300), [pullUp])
+  // eslint-disable-next-line
+  let pullDownDebounce = useCallback(debounce(pullDown, 300), [pullDown])
   useEffect(() => {
     if (!bScroll || !pullUp) return
     const handlePullUp = () => {

@@ -6,12 +6,14 @@ import store from './store/index'
 import routes from './routes/index.js'
 import { BrowserRouter } from 'react-router-dom'
 
+import { Data } from './pages/Singers/data'
+
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <GlobalStyle></GlobalStyle>
-        {renderRoutes(routes)}
+        <Data>{renderRoutes(routes)}</Data>
       </BrowserRouter>
     </Provider>
   )

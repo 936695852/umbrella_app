@@ -52,10 +52,16 @@ function Horizon(props) {
         <List>
           <span>{title}</span>
           {list.map(item => {
+            let className
+            if (typeof item.key == 'object' && oldVal.area) {
+              className = item.key.area === oldVal.area && item.key.type === oldVal.type ? 'selected' : ''
+            } else {
+              className = item.key === oldVal ? 'selected' : ''
+            }
             return (
               <ListItem
-                key={typeof (item === 'string') ? item.name : item.key}
-                className={`${oldVal === item.key ? 'selected' : ''}`}
+                key={typeof item.key === 'string' ? item.key : item.name}
+                className={className}
                 onClick={() => handleClick(item.key)}
               >
                 {item.name}
