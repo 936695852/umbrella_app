@@ -4,6 +4,8 @@ import { Top, Tab, TabItem } from './style'
 import { NavLink } from 'react-router-dom'
 import { FaBars, FaSistrix } from 'react-icons/fa'
 
+import Player from '../Player'
+
 function Home(props) {
   const { route } = props
   return (
@@ -35,6 +37,7 @@ function Home(props) {
         </NavLink>
       </Tab>
       {renderRoutes(route.routes)}
+      <Player></Player>
     </div>
   )
 }

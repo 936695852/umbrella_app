@@ -1,44 +1,10 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getRankList } from './store'
+import { getRankList } from '../../store/rank'
 import { Container, List, ListItem, SongList } from './style'
 import { filterIndex } from '../../api/utils'
 import Scroll from '../../baseUl/scroll'
 import { renderRoutes } from 'react-router-config'
-
-const renderRankList = (list, global) => {
-  const enterDetail = () => {}
-  return (
-    <List globalRank={global}>
-      {list.map(item => {
-        return (
-          <ListItem key={item.commentThreadId} tracks={item.tracks} onClick={() => enterDetail(item.name)}>
-            <div className="img_wrapper">
-              <img src={item.coverImgUrl} alt="" />
-              <div className="decorate"></div>
-              <span className="update_frequency">{item.updateFrequency}</span>
-            </div>
-            {renderSongList(item.tracks)}
-          </ListItem>
-        )
-      })}
-    </List>
-  )
-}
-
-const renderSongList = list => {
-  return list.length ? (
-    <SongList>
-      {list.map((item, index) => {
-        return (
-          <li key={index}>
-            {index + 1}. {item.first} - {item.second}
-          </li>
-        )
-      })}
-    </SongList>
-  ) : null
-}
 
 function Rank(props) {
   const { rankList: list, loading } = props
@@ -55,6 +21,43 @@ function Rank(props) {
   }, [])
 
   let displayStyle = loading ? { display: 'none' } : { display: '' }
+
+  const enterDetail = detail => {
+    props.history.push(`/rank/${detail.id}`)
+  }
+
+  const renderRankList = (list, global) => {
+    return (
+      <List globalRank={global}>
+        {list.map(item => {
+          return (
+            <ListItem key={item.commentThreadId} tracks={item.tracks} onClick={() => enterDetail(item)}>
+              <div className="img_wrapper">
+                <img src={item.coverImgUrl} alt="" />
+                <div className="decorate"></div>
+                <span className="update_frequency">{item.updateFrequency}</span>
+              </div>
+              {renderSongList(item.tracks)}
+            </ListItem>
+          )
+        })}
+      </List>
+    )
+  }
+
+  const renderSongList = list => {
+    return list.length ? (
+      <SongList>
+        {list.map((item, index) => {
+          return (
+            <li key={index}>
+              {index + 1}. {item.first} - {item.second}
+            </li>
+          )
+        })}
+      </SongList>
+    ) : null
+  }
   return (
     <Container>
       <Scroll>

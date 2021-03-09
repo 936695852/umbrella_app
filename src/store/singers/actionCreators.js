@@ -1,4 +1,4 @@
-import { getHotSingerListRequest, getSingerListRequest } from '../../../api/request'
+import { getHotSingerListRequest, getSingerListRequest } from '../../api/request'
 import {
   CHANGE_SINGER_LIST,
   CHANGE_PAGE_COUNT,

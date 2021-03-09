@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
-import Slider from '../../components/slider'
+import Slider from '../../components/Slider'
 import { connect } from 'react-redux'
-import RecommendList from '../../components/list'
+import RecommendList from '../../components/List'
 import Scroll from '../../baseUl/scroll'
 import { Content } from './style'
 import { forceCheck } from 'react-lazyload'
 import Loading from '../../baseUl/loading'
 import { renderRoutes } from 'react-router-config'
 
-import * as actionTypes from './store/actionCreators'
+import * as actionTypes from '../../store/recommend/actionCreators'
 
 function Recommend(props) {
   const { bannerList, recommendList, enterLoading } = props

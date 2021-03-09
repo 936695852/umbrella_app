@@ -1,6 +1,6 @@
 //rank/store/index.js
 import { fromJS } from 'immutable'
-import { getRankListRequest } from '../../../api/request'
+import { getRankListRequest } from '../../api/request'
 
 //constants
 export const CHANGE_RANK_LIST = 'home/rank/CHANGE_RANK_LIST'

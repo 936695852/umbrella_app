@@ -1,6 +1,6 @@
 import * as actionTypes from './constants'
 import { fromJS } from 'immutable' // 将 JS 对象转换成 immutable 对象
-import { getBannerRequest, getRecommendListRequest } from '../../../api/request'
+import { getBannerRequest, getRecommendListRequest } from '../../api/request'
 
 // State 的变化，会导致 View 的变化。
 // 但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View 导致的。

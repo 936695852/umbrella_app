@@ -5,6 +5,7 @@ import Recommend from '../pages/Recommend'
 import Singers from '../pages/Singers'
 import Rank from '../pages/Rank'
 import Album from '../pages/Album'
+import Singer from '../pages/Singer'
 
 const routers = [
   {
@@ -29,10 +30,22 @@ const routers = [
       {
         path: '/singers',
         component: Singers,
+        routes: [
+          {
+            path: '/singers/:id',
+            component: Singer,
+          },
+        ],
       },
       {
         path: '/rank',
         component: Rank,
+        routes: [
+          {
+            path: '/rank/:id',
+            component: Album,
+          },
+        ],
       },
     ],
   },

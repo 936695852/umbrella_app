@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import style from '../../assets/global-style'
 import PropTypes from 'prop-types'
 
-import { FaLongArrowAltLeft } from 'react-icons/fa'
+import { BiArrowBack } from 'react-icons/bi'
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -26,13 +26,22 @@ const HeaderContainer = styled.div`
     font-weight: 700;
   }
 `
+export const HEADER_HEIGHT = 45
+
 // 处理函数组件拿不到 ref 的问题，所以用 forwardRef
 const Header = React.forwardRef((props, ref) => {
-  const { handleClick, title } = props
+  const { handleClick, title, isMarquee } = props
   return (
     <HeaderContainer ref={ref}>
-      <FaLongArrowAltLeft className="back" onClick={handleClick} />
-      <h1>{title}</h1>
+      <BiArrowBack className="back" onClick={handleClick} />
+      {isMarquee ? (
+        // eslint-disable-next-line jsx-a11y/no-distracting-elements
+        <marquee>
+          <h1>{title}</h1>
+        </marquee>
+      ) : (
+        <h1>{title}</h1>
+      )}
     </HeaderContainer>
   )
 })
@@ -40,11 +49,13 @@ const Header = React.forwardRef((props, ref) => {
 Header.defaultProps = {
   handleClick: () => {},
   title: '标题',
+  isMarquee: false,
 }
 
 Header.propTypes = {
   handleClick: PropTypes.func,
   title: PropTypes.string,
+  isMarquee: PropTypes.bool,
 }
 
 export default React.memo(Header)

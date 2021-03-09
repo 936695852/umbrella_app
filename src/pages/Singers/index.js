@@ -16,30 +16,10 @@ import {
   changePullUpLoading,
   changePullDownLoading,
   refreshMoreHotSingerList,
-} from './store/actionCreators'
+} from '../../store/singers/actionCreators'
 import { connect } from 'react-redux'
 
-// 渲染函数，返回歌手列表
-const renderSingerList = singerList => {
-  return (
-    <List>
-      {singerList.map((item, index) => {
-        return (
-          <ListItem key={item.accountId + '' + index}>
-            <div className="img_wrapper">
-              <LazyLoad
-                placeholder={<img width="100%" height="100%" src={require('./singer.png').default} alt="music" />}
-              >
-                <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />
-              </LazyLoad>
-            </div>
-            <span className="name">{item.name}</span>
-          </ListItem>
-        )
-      })}
-    </List>
-  )
-}
+import { renderRoutes } from 'react-router-config'
 
 function Singers(props) {
   const { singerList, pullUpLoading, pullDownLoading, pageCount } = props
@@ -78,6 +58,31 @@ function Singers(props) {
     pullDownRefreshDispatch(category, alpha)
   }
 
+  // 渲染函数，返回歌手列表
+  const renderSingerList = () => {
+    const enterDetail = id => {
+      props.history.push(`/singers/${id}`)
+    }
+    return (
+      <List>
+        {singerListJS.map((item, index) => {
+          return (
+            <ListItem key={item.accountId + '' + index} onClick={() => enterDetail(item.id)}>
+              <div className="img_wrapper">
+                <LazyLoad
+                  placeholder={<img width="100%" height="100%" src={require('./singer.png').default} alt="music" />}
+                >
+                  <img src={`${item.picUrl}?param=300x300`} width="100%" height="100%" alt="music" />
+                </LazyLoad>
+              </div>
+              <span className="name">{item.name}</span>
+            </ListItem>
+          )
+        })}
+      </List>
+    )
+  }
+
   return (
     <NavContainer>
       <Horizon
@@ -95,9 +100,10 @@ function Singers(props) {
           pullUpLoading={pullUpLoading}
           pullDownLoading={pullDownLoading}
         >
-          {renderSingerList(singerListJS)}
+          {renderSingerList()}
         </Scroll>
       </ListContainer>
+      {renderRoutes(props.route.routes)}
     </NavContainer>
   )
 }
@@ -109,6 +115,7 @@ const mapStateToProps = state => ({
   pullDownLoading: state.getIn(['singers', 'pullDownLoading']),
   pageCount: state.getIn(['singers', 'pageCount']),
 })
+
 const mapDispatchToProps = dispatch => {
   return {
     getHotSingerDispatch() {
