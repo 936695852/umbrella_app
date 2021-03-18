@@ -50,7 +50,7 @@ function ProgressBar(props) {
   const _changePercent = () => {
     const barWidth = progressBar.current.clientWidth - progressBtnWidth
     const curPercent = progress.current.clientWidth / barWidth // 新的进度计算
-    // percentChange(curPercent) // 把新的进度传给回调函数并执行
+    percentChange(curPercent) // 把新的进度传给回调函数并执行
   }
 
   // 处理进度条的偏移
